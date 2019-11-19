@@ -1,0 +1,50 @@
+version: "3.4"
+services:
+  user:
+    build:
+      context: ./users
+      dockerfile: Dockerfile
+    volumes:
+      - ./users:/var/www
+    networks:
+      app_net:
+  front:
+    build:
+      context: ./front
+      dockerfile: Dockerfile
+    environment:
+      - PORT=3000
+      - USER_SERVICE_PATH=user.local
+    volumes:
+      - ./front:/home/app
+    extra_hosts:
+      - user.local:172.27.1.12
+    networks:
+      app_net:
+  proxy:
+    build:
+      context: ./proxy
+      dockerfile: Dockerfile
+    ports:
+      - 80:80
+    networks:
+      app_net:
+        ipv4_address: 172.27.1.12
+  mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - mysqldata:/var/lib/mysql
+    ports:
+      - 3306:3306
+    networks:
+      app_net:
+volumes:
+  mysqldata:
+networks:
+  app_net:
+    external : true
+    ipam:
+     config:
+       - subnet: 172.27.0.0/16
