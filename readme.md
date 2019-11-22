@@ -1,12 +1,12 @@
 # Service orchestrator
 There are two services, one is a Lumen (PHP) Rest Api that provide an api for listing users, the another service was developed on nodejs that consume that Api. 
 
-### Requirements
+## Requirements
   - Docker
   - Docker compose
   - Mysql Client
   
-### Installation
+## Installation
 1) Clone this repositories
 
 2) Edit your hosts file, typically located in `/etc/hosts` and add the following line : 
@@ -37,7 +37,7 @@ $ docker-compose up
 $ docker-compose run user php artisan migrate --seed
 ```
 
-### Structure
+## Structure
 ```
 o
 |-- docker-compose.yml

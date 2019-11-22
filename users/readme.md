@@ -1,21 +1,32 @@
-# Lumen PHP Framework
+# Description
 
-[![Build Status](https://travis-ci.org/laravel/lumen-framework.svg)](https://travis-ci.org/laravel/lumen-framework)
-[![Total Downloads](https://poser.pugx.org/laravel/lumen-framework/d/total.svg)](https://packagist.org/packages/laravel/lumen-framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/lumen-framework/v/stable.svg)](https://packagist.org/packages/laravel/lumen-framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/lumen-framework/v/unstable.svg)](https://packagist.org/packages/laravel/lumen-framework)
-[![License](https://poser.pugx.org/laravel/lumen-framework/license.svg)](https://packagist.org/packages/laravel/lumen-framework)
+This project is an example who provide a single endpoint to will be consumed by another service.
 
-Laravel Lumen is a stunningly fast PHP micro-framework for building web applications with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Lumen attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as routing, database abstraction, queueing, and caching.
+## Requirements
+  - Docker
+  - Docker compose
+  - Mysql Client
 
-## Official Documentation
+## Installation
 
-Documentation for the framework can be found on the [Lumen website](https://lumen.laravel.com/docs).
+1) Clone this repositories
 
-## Security Vulnerabilities
+2) Edit your hosts file, typically located in `/etc/hosts` and add the following line : 
+```
+127.0.0.1 user.local
+```
+3) Into the **users** folder run the following commands:
+```sh
+$ cp .env.example .env
+```
+4) You may replace these ENV VARS. For `DB_CONNECTION` put `mysql` (that is the container's name).
 
-If you discover a security vulnerability within Lumen, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+5) After that run the following commands : 
+```sh
+$ docker run -v $(pwd):/app prooph/composer:7.2 install
+$ docker-compose up
+```
 
-## License
+6) You may create into docker container a database with the same name that you set up the user service
 
-The Lumen framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+7) Run `docker-compose run user php artisan migrate --seed`
